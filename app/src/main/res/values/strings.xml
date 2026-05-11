@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">freshPoint</string>
+    <string name="small_drink_fanta">Фанта (маленькая)</string>
+    <string name="small_drink_cola">Колла (маленькая)</string>
+    <string name="small_drink_cola_chery">Колла чери (маленькая)</string>
+    <string name="small_drink_cola_light">Колла лайт (маленькая)</string>
+    <string name="small_drink_7up">7 апп (маленькая)</string>
+    <string name="small_drink_swheppes">Швепс (маленькая)</string>
+    <string name="small_drink_pepsi">Пепси (маленькая)</string>
+    <string name="two_wopper_smoky_cheddar_at_a_discount">2 Воппер Смоки Чеддер</string>
+    <string name="anugs_pita_parmesan">Ангус Пита Пармезан</string>
+    <string name="anugs_pita_cedar_barbecue">Ангус Пита бекон-барбекю</string>
+    <string name="big_king_new">Биг Кинг Новый</string>
+    <string name="big_king_smokki_cheader">Биг Кинг Смокки Чедр</string>
+    <string name="wopper_smoky_cedar">Воппер Смокки Чедр</string>
+    <string name="double_angus_cheddar_bacon">Двойной Ангус Чеддр Бекон</string>
+    <string name="resoice_double_wopper_smoky_cedar">Двойно Воппер Смокки Чедр</string>
+    <string name="spicy_angus_parmesan_double">Острый Ангус Пармезан Двойной</string>
+    <string name="spicy_angus_parmesan">Острый Ангус Пармезан</string>
+    <string name="spicy_cheeseburger_with_mushrooms">Острый Чизбургер с Грибами</string>
+    <string name="spicy_chickenburger_with_mushrooms">Острый Чикенбургер с Грибами</string>
+    <string name="chicken_roll_smokey_cedar">Чикен Ролл Смокки Чеддр</string>
+    <string name="chicken_smoky_cedar">Чикен Смокки Чедрр</string>
+    <string name="shrip_chiken_ceddr_roll">Шримп Чикен Чеддр Ролл</string>
+    <string name="souse_parmejano">Соус Пармеджано</string>
+    <string name="souse_cheesy">Соус Сырный</string>
+    <string name="souse_grill">Соус Грилль</string>
+    <string name="souse_tomato">Соус Томатный</string>
+    <string name="souse_caesar">Соус Цезарь</string>
+    <string name="souse_mustard">Соус Горчичный</string>
+</resources>
