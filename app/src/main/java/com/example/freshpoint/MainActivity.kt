@@ -11,16 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.freshpoint.model.OrderUiState
+import com.example.freshpoint.ui.FreshPointApp
 import com.example.freshpoint.ui.theme.FreshPointTheme
+import com.example.freshpoint.ui.theme.StartOrderScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            FreshPointTheme {
-
-            }
+            FreshPointApp()
         }
     }
 }

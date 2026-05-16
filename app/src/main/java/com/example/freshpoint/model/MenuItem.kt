@@ -10,13 +10,14 @@ data class BurgerMenuItem(
     val price: Float,
     @DrawableRes val imageRes : Int,
 )
+
 data class DrinkMenuItem(
     @StringRes val name: Int,
     val description: String="Современная и невероятно вкусная кола от бренда премиальных газированных" +
             " напитков с более чем полувековой историей. Насладитесь ярким богатым вкусом и бодрящей свежестью",
     val price: Float,
-    @DrawableRes val imageRes : Int
-
+    @DrawableRes val imageRes : Int,
+    val count: Int = 1
 )
 data class SouseMenuItem(
     @StringRes val name: Int,
@@ -24,7 +25,14 @@ data class SouseMenuItem(
             " нежный вкус соуса. Это то, без чего не обойтись!",
     val price: Float,
     @DrawableRes val imageRes : Int,
+    val count: Int = 1
 )
 data class Restaurant(
     val address: String
+)
+data class FullOrder(
+    val burger: BurgerMenuItem,
+    val drink: DrinkMenuItem?,
+    val souse: SouseMenuItem?,
+    val count: Int = 1
 )
