@@ -84,7 +84,9 @@ fun FreshPointApp() {
             }
             composable ( BottomScreen.Order.name ){
                 AddToShoppingCart(
-
+                    souseMenuItems = uiState.souseMenuItem,
+                    drinkMenuItems = uiState.drinkMenuItem,
+                    burgerMenuItem = uiState.selectedBurgerItem
                 )
             }
 
