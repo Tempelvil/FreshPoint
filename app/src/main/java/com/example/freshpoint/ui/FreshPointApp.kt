@@ -86,7 +86,14 @@ fun FreshPointApp() {
                 AddToShoppingCart(
                     souseMenuItems = uiState.souseMenuItem,
                     drinkMenuItems = uiState.drinkMenuItem,
-                    burgerMenuItem = uiState.selectedBurgerItem
+                    burgerMenuItem = uiState.selectedBurgerItem,
+                    addToCart = {
+                        fullOrder -> viewModel.addFullOrder(fullOrder)
+                        navController.popBackStack()
+                    },
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
                 )
             }
 

@@ -66,4 +66,11 @@ class FreshPointViewModel: ViewModel() {
         }
 
     }
+    fun addFullOrder(order: FullOrder){
+        _uiState.update { curretState ->
+            curretState.copy(
+                fullOrder = curretState.fullOrder+order
+            )
+        }
+    }
 }

@@ -117,6 +117,7 @@ object DataMenuItem {
     )
     val souseMenuList = listOf(
         SouseMenuItem(
+            id = 22221,
             name = R.string.souse_grill,
             description = "Он вернулся. Он премиальный. Необыкновенный соус для твоих закусок — с ароматом пикника." +
                     " Приготовлен по эксклюзивному рецепту нашего шефа.",
@@ -124,6 +125,7 @@ object DataMenuItem {
             imageRes = R.drawable.resource_grill
         ),
         SouseMenuItem(
+            id = 22222,
             name = R.string.souse_caesar,
             description = "Добавьте в любимые закуски приятный аромат," +
                     " остроту и восхитительный нежный вкус соуса. Это то, без чего не обойтись!",
@@ -131,6 +133,7 @@ object DataMenuItem {
             imageRes = R.drawable.resoice_caesar
         ),
         SouseMenuItem(
+            id = 22223,
             name = R.string.souse_cheesy,
             description = "Добавьте в любимые закуски приятный аромат," +
                     " остроту и восхитительный нежный вкус соуса. Это то, без чего не обойтись!",
@@ -138,6 +141,7 @@ object DataMenuItem {
             imageRes = R.drawable.resource_cheesy
         ),
         SouseMenuItem(
+            id = 22224,
             name = R.string.souse_mustard,
             description = "Добавьте в любимые закуски приятный аромат," +
                     " остроту и восхитительный нежный вкус соуса. Это то, без чего не обойтись!",
@@ -145,6 +149,7 @@ object DataMenuItem {
             imageRes = R.drawable.resource_mustard
         ),
         SouseMenuItem(
+            id = 22225,
             name = R.string.souse_parmejano,
             description = "Добавьте в любимые закуски приятный аромат," +
                     " остроту и восхитительный нежный вкус соуса. Это то, без чего не обойтись!",
@@ -152,6 +157,7 @@ object DataMenuItem {
             imageRes = R.drawable.resource_parmejano
         ),
         SouseMenuItem(
+            id = 22226,
             name = R.string.souse_tomato,
             description = "Сделай остро! Бургеры и закуски станут ещё жарче с нашим острым томатным соусом!" +
                     " В составе — чёрный перец, чили и мускатный орех.",
@@ -161,42 +167,49 @@ object DataMenuItem {
     )
     val drinkMenuList = listOf(
         DrinkMenuItem(
+            id = 33331,
             name = R.string.small_drink_cola,
             description = "Освежающий газированный напиток с классическим вкусом",
             price = 149.99f,
             imageRes = R.drawable.resource__colla_small
         ),
         DrinkMenuItem(
+            id = 33332,
             name = R.string.small_drink_cola_light,
             description = "Освежающий газированный напиток с классическим вкусом",
             price = 149.99f,
             imageRes = R.drawable.resoice__colla_light
         ),
         DrinkMenuItem(
+            id = 33333,
             name = R.string.small_drink_cola_chery,
             description = "Освежающий газированный напиток с классическим вкусом",
             price = 149.99f,
             imageRes = R.drawable.resoice__colla_cherry
         ),
         DrinkMenuItem(
+            id = 33334,
             name = R.string.small_drink_7up,
             description = "Освежающий газированный напиток с классическим вкусом",
             price = 149.99f,
             imageRes = R.drawable.resoice__7up
         ),
         DrinkMenuItem(
+            id = 33335,
             name = R.string.small_drink_fanta,
             description = "Освежающий газированный напиток с классическим вкусом",
             price = 149.99f,
             imageRes = R.drawable.resoice__fanta
         ),
         DrinkMenuItem(
+            id = 33336,
             name = R.string.small_drink_pepsi,
             description = "Освежающий газированный напиток с классическим вкусом",
             price = 149.99f,
             imageRes = R.drawable.resoice__pepsi
         ),
         DrinkMenuItem(
+            id = 33337,
             name = R.string.small_drink_swheppes,
             description = "Освежающий газированный напиток с классическим вкусом",
             price = 149.99f,
