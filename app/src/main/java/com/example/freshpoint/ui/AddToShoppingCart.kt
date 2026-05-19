@@ -198,7 +198,15 @@ fun AddToShoppingCart(
                     )
                 }
             }
-
+            // Промежуточная цена заказа
+            val currentOrderPrice =
+                (burgerMenuItem?.price ?: 0f) +
+                        souseMenuItems.sumOf { souse ->
+                            ((souseCounts[souse.id] ?: 0) * souse.price).toDouble()
+                        }.toFloat() +
+                        drinkMenuItems.sumOf { drink ->
+                            ((drinkCounts[drink.id] ?: 0) * drink.price).toDouble()
+                        }.toFloat()
             Card(
                 modifier = Modifier
             ) {
@@ -250,8 +258,8 @@ fun AddToShoppingCart(
                             containerColor = Color(0xFFFF9800),
                             contentColor = Color.Black
                         )
-                    ) {
-                        Text("Добавить в корзину")
+                    ) { Text(text = "${"%.2f".format(currentOrderPrice)} ₽")
+
                     }
                 }
             }

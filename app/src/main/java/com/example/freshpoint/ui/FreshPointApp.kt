@@ -98,7 +98,22 @@ fun FreshPointApp() {
             }
 
             composable(BottomScreen.Cart.name) {
-                //CartScreen()
+                CartOrderScreen(
+                    onBackClick = { navController.popBackStack() },
+                    selectedRestorauntAdres = uiState.selectedRestaurantAddress,
+                    selectedDeliveryAdres = uiState.showDeliveryAddress,
+                    orderType = uiState.orderType,
+                    onChangeOrderClick = { navController.navigate(BottomScreen.Home.name) },
+                    onChangeTypeOrder = { newType ->
+                        viewModel.changeOrderType(newType)
+                    },
+                    bonuses = uiState.bonuses,
+                    isBonusesUsed = uiState.isBonusesUsed,
+                    onBonusesUsedChange = {isUsed->
+                        viewModel.changeBonusesUsed(isUsed)
+                    },
+                    fullOrder = uiState.fullOrder,
+                )
             }
         }
     }

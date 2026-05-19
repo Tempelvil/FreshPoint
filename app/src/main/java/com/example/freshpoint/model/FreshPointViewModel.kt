@@ -73,4 +73,18 @@ class FreshPointViewModel: ViewModel() {
             )
         }
     }
+    fun changeOrderType(orderType: OrderType){
+        _uiState.update { currentState ->
+            currentState.copy(
+                orderType=orderType
+            )
+        }
+    }
+    fun changeBonusesUsed(isUsed: Boolean) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                isBonusesUsed = isUsed
+            )
+        }
+    }
 }

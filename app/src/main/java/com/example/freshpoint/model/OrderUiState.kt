@@ -8,6 +8,7 @@ import com.example.freshpoint.data.DataMenuItem.souseMenuList
 
 data class OrderUiState (
     val bonuses:Int =0,
+    val isBonusesUsed: Boolean = false,
     val orderType: OrderType? = null,
     val deliveryAddress: String = "",
     val showDeliveryAddress: String = "",
