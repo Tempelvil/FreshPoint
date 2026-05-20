@@ -87,4 +87,36 @@ class FreshPointViewModel: ViewModel() {
             )
         }
     }
+    fun increaseFullOrder(order: FullOrder) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                fullOrder = currentState.fullOrder.map { item ->
+                    if (item == order) {
+                        item.copy(count = item.count + 1)
+                    } else {
+                        item
+                    }
+                }
+            )
+        }
+    }
+    fun decreaseFullOrder(order: FullOrder) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                fullOrder = currentState.fullOrder.mapNotNull { item ->
+                    if (item == order) {
+                        val newCount = item.count - 1
+
+                        if (newCount <= 0) {
+                            null
+                        } else {
+                            item.copy(count = newCount)
+                        }
+                    } else {
+                        item
+                    }
+                }
+            )
+        }
+    }
 }

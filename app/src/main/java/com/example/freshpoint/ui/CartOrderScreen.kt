@@ -1,5 +1,6 @@
 package com.example.freshpoint.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,8 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -22,6 +25,8 @@ import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.CurrencyBitcoin
 import androidx.compose.material.icons.filled.DirectionsBike
 import androidx.compose.material.icons.filled.RestaurantMenu
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,12 +38,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.freshpoint.data.DataMenuItem.burgerMenuList
+import com.example.freshpoint.data.DataMenuItem.drinkMenuList
+import com.example.freshpoint.data.DataMenuItem.souseMenuList
 import com.example.freshpoint.model.FullOrder
 import com.example.freshpoint.model.OrderType
 import com.example.freshpoint.model.Restaurant
+import com.example.freshpoint.model.SelectedDrink
+import com.example.freshpoint.model.SelectedSouse
 import com.example.freshpoint.ui.theme.bonusCard
 
 @Composable
@@ -53,7 +67,10 @@ fun CartOrderScreen(
     bonuses: Int,
     isBonusesUsed: Boolean,
     onBonusesUsedChange: (Boolean) -> Unit,
-    fullOrder: List<FullOrder>
+    fullOrder: List<FullOrder>,
+    onChangeOrderItem: (FullOrder)->Unit,
+    onPlusOrderClick: (FullOrder) -> Unit,
+    onMinusOrderClick: (FullOrder) -> Unit
 ){
     val orderPrice =fullOrder.sumOf {
         order ->
@@ -90,37 +107,40 @@ fun CartOrderScreen(
             }
         }
     ) { innerPadding ->
-        
-        Column(
-            modifier = Modifier.padding(innerPadding)
 
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            contentPadding = PaddingValues(12.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            OrderDeliveryOrRestCard(
-                selectedDelivery =selectedDeliveryAdres,
-                selectedRestoraunt = selectedRestorauntAdres,
-                orderType = orderType,
-                onOrderTypeChange = onChangeTypeOrder,
-                onChangeOrderClick = onChangeOrderClick
-            )
-            Spacer(modifier= Modifier.height(14.dp))
+            item {
+                OrderDeliveryOrRestCard(
+                    selectedDelivery = selectedDeliveryAdres,
+                    selectedRestoraunt = selectedRestorauntAdres,
+                    orderType = orderType,
+                    onOrderTypeChange = onChangeTypeOrder,
+                    onChangeOrderClick = onChangeOrderClick
+                )
+            }
 
-            bonusesCard(
-                bonuses = bonuses,
-                orderPrice = orderPrice,
-                isBonusesUsed = isBonusesUsed,
-                onBonusesUsedChange = onBonusesUsedChange,
-            )
-            
-            LazyVerticalGrid(
-                modifier = Modifier.padding(innerPadding).
-                fillMaxSize().padding(start = 24.dp).padding(end = 24.dp).padding(top=24.dp),
-                columns = GridCells.Fixed(1),
-                contentPadding = PaddingValues(20.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-
-
+            item {
+                bonusesCard(
+                    bonuses = bonuses,
+                    orderPrice = orderPrice,
+                    isBonusesUsed = isBonusesUsed,
+                    onBonusesUsedChange = onBonusesUsedChange
+                )
+            }
+            items(fullOrder) {
+                order ->
+                fullOrderCard(
+                    fullOrderItem = order,
+                    onChangeOrderItem = onChangeOrderItem,
+                    onPlusOrderClick = onPlusOrderClick,
+                    onMinusOrderClick = onMinusOrderClick
+                )
             }
         }
 
@@ -164,13 +184,15 @@ fun bonusesCard(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize().padding(end = 8.dp),
+                .fillMaxSize()
+                .padding(end = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(12.dp).weight(1f),
+                    .padding(12.dp)
+                    .weight(1f),
                 verticalArrangement = Arrangement.Center
             ) {
                 Row(
@@ -204,6 +226,131 @@ fun bonusesCard(
         }
 
     }
+}
+@Composable
+fun fullOrderCard(
+    fullOrderItem: FullOrder,
+    onChangeOrderItem: (FullOrder) -> Unit,
+    onPlusOrderClick: (FullOrder) -> Unit,
+    onMinusOrderClick: (FullOrder) -> Unit,
+    modifier: Modifier = Modifier,
+
+) {
+    Card(
+        modifier = modifier.padding(start = 12.dp, end = 12.dp),
+        shape = RoundedCornerShape(24.dp),
+        onClick = {
+            onChangeOrderItem(fullOrderItem)
+        }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Image(
+                painter = painterResource(fullOrderItem.burger.imageRes),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(80.dp)
+                    .padding(top = 12.dp),
+                contentScale = ContentScale.Fit
+            )
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp)
+            ) {
+                Text(
+                    text = stringResource(fullOrderItem.burger.name),
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                fullOrderItem.souses.forEach { selectedSouse ->
+                    Text(
+                        text = "${stringResource(selectedSouse.souse.name)} x${selectedSouse.count}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                fullOrderItem.drinks.forEach { selectedDrink ->
+                    Text(
+                        text = "${stringResource(selectedDrink.drink.name)} x${selectedDrink.count}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "%.2f ₽".format(calculateFullOrderPrice(fullOrderItem)),
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    Button(
+                        onClick = {
+                            onMinusOrderClick(fullOrderItem)
+                        },
+                        modifier = Modifier.size(36.dp),
+                        contentPadding = PaddingValues(0.dp),
+                        shape = RoundedCornerShape(50),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFFF9800),
+                            contentColor = Color.Black
+                        )
+                    ) {
+                        Text("-")
+                    }
+
+                    Text(
+                        text = fullOrderItem.count.toString(),
+                        modifier = Modifier.padding(horizontal = 12.dp)
+                    )
+
+                    Button(
+                        onClick = {
+                            onPlusOrderClick(fullOrderItem)
+                        },
+                        modifier = Modifier.size(36.dp),
+                        contentPadding = PaddingValues(0.dp),
+                        shape = RoundedCornerShape(50),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFFF9800),
+                            contentColor = Color.Black
+                        )
+                    ) {
+                        Text("+")
+                    }
+                }
+            }
+        }
+    }
+}
+
+fun calculateFullOrderPrice(order: FullOrder): Float {
+    val burgerPrice = order.burger.price
+
+    val sousesPrice = order.souses.sumOf { selectedSouse ->
+        (selectedSouse.souse.price * selectedSouse.count).toDouble()
+    }.toFloat()
+
+    val drinksPrice = order.drinks.sumOf { selectedDrink ->
+        (selectedDrink.drink.price * selectedDrink.count).toDouble()
+    }.toFloat()
+
+    return burgerPrice + sousesPrice + drinksPrice
 }
 
 @Composable
@@ -239,7 +386,7 @@ fun OrderDeliveryOrRestCard(
 
     Card(
         modifier = Modifier
-            .padding(start = 12.dp, end = 12.dp,top=12.dp, bottom = 2.dp)
+            .padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 2.dp)
             .fillMaxWidth()
             .height(50.dp),
         shape = RoundedCornerShape(topStart = 14.dp, topEnd = 14.dp, bottomStart = 0.dp, bottomEnd = 0.dp)
@@ -353,7 +500,29 @@ fun previewCartOrderScreen(){
         bonuses = 0,
         isBonusesUsed = false,
         onBonusesUsedChange = {},
-        fullOrder = emptyList(),
+        onChangeOrderItem = {},
+        fullOrder = listOf(
+            FullOrder(
+                burger = burgerMenuList[0],
+                souses = listOf(
+                    SelectedSouse(souseMenuList[0], 2)
+                ),
+                drinks = listOf(
+                    SelectedDrink(drinkMenuList[0], 1)
+                )
+            ),
+            FullOrder(
+                burger = burgerMenuList[1],
+                souses = listOf(
+                    SelectedSouse(souseMenuList[1], 3)
+                ),
+                drinks = listOf(
+                    SelectedDrink(drinkMenuList[1], 2)
+                )
+            )
+        ),
+        onPlusOrderClick ={ },
+        onMinusOrderClick = {}
     )
 
 }
