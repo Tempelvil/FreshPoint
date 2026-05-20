@@ -87,8 +87,19 @@ fun FreshPointApp() {
                     souseMenuItems = uiState.souseMenuItem,
                     drinkMenuItems = uiState.drinkMenuItem,
                     burgerMenuItem = uiState.selectedBurgerItem,
-                    addToCart = {
-                        fullOrder -> viewModel.addFullOrder(fullOrder)
+                    addToCart = { newOrder ->
+                        val oldOrder = uiState.editingOrder
+
+                        if (oldOrder != null) {
+                            viewModel.replaceFullOrder(
+                                oldOrder = oldOrder,
+                                newOrder = newOrder
+                            )
+                            viewModel.clearEditingOrder()
+                        } else {
+                            viewModel.addFullOrder(newOrder)
+                        }
+
                         navController.popBackStack()
                     },
                     onBackClick = {
@@ -109,10 +120,20 @@ fun FreshPointApp() {
                     },
                     bonuses = uiState.bonuses,
                     isBonusesUsed = uiState.isBonusesUsed,
-                    onBonusesUsedChange = {isUsed->
+                    onBonusesUsedChange = { isUsed ->
                         viewModel.changeBonusesUsed(isUsed)
                     },
                     fullOrder = uiState.fullOrder,
+                    onChangeOrderItem = {order ->
+                        viewModel.selectEditingOrder(order)
+                        navController.navigate(BottomScreen.Order.name)
+                    },
+                    onPlusOrderClick = {order ->
+                        viewModel.increaseFullOrder(order)
+                    },
+                    onMinusOrderClick = {order ->
+                        viewModel.decreaseFullOrder(order)
+                    },
                 )
             }
         }

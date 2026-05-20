@@ -119,4 +119,36 @@ class FreshPointViewModel: ViewModel() {
             )
         }
     }
+
+    fun selectEditingOrder(order: FullOrder) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                editingOrder = order,
+                selectedBurgerItem = order.burger
+            )
+        }
+    }
+    fun clearEditingOrder() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                editingOrder = null
+            )
+        }
+    }
+    fun replaceFullOrder(
+        oldOrder: FullOrder,
+        newOrder: FullOrder
+    ) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                fullOrder = currentState.fullOrder.map { order ->
+                    if (order == oldOrder) {
+                        newOrder
+                    } else {
+                        order
+                    }
+                }
+            )
+        }
+    }
 }

@@ -350,7 +350,7 @@ fun calculateFullOrderPrice(order: FullOrder): Float {
         (selectedDrink.drink.price * selectedDrink.count).toDouble()
     }.toFloat()
 
-    return burgerPrice + sousesPrice + drinksPrice
+    return (burgerPrice + sousesPrice + drinksPrice)*order.count
 }
 
 @Composable

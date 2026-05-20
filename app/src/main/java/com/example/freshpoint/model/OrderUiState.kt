@@ -21,6 +21,7 @@ data class OrderUiState (
     val selectedSouseMenuItem: SouseMenuItem? = null,
     val drinkMenuItem: List<DrinkMenuItem> = drinkMenuList,
     val selectedDrinkMenuItem: DrinkMenuItem? = null,
+    val editingOrder: FullOrder? = null,
 
     val fullOrder: List<FullOrder> = emptyList()
 )
